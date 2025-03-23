@@ -10,9 +10,12 @@ namespace InventoryManagementProject
 {
     public class DataWriter
     {
+        /// <summary>
+        /// todo: use config file
+        /// </summary>
         private static readonly string DATA_FILE_NAME = "inventory.json";
 
-        public static List<ConcreteProduct> LoadDatabase()
+        public static List<Product> LoadDatabase()
         {
             try
             {
@@ -21,7 +24,7 @@ namespace InventoryManagementProject
                     string jsonString = File.ReadAllText(DATA_FILE_NAME);
                     if (!string.IsNullOrEmpty(jsonString))
                     {
-                        var deserializedResult = JsonSerializer.Deserialize<List<ConcreteProduct>>(jsonString);
+                        var deserializedResult = JsonSerializer.Deserialize<List<Product>>(jsonString);
                         if (deserializedResult != null)
                         {
                             return deserializedResult;
@@ -36,10 +39,10 @@ namespace InventoryManagementProject
                 Console.WriteLine($"Stack Trace: {ex.StackTrace}");
                 Environment.Exit(0);
             }
-            return new List<ConcreteProduct>();
+            return new List<Product>();
         }
 
-        public static void SaveDatabase(List<ConcreteProduct> products)
+        public static void SaveDatabase(List<Product> products)
         {
             File.WriteAllText(DATA_FILE_NAME, JsonSerializer.Serialize(products));
         }

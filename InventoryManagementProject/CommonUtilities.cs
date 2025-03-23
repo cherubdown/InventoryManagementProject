@@ -31,5 +31,16 @@ namespace InventoryManagementProject
                 return ReadUserKeyAndDetermineYesOrNo();
             }
         }
+
+        public static bool IsPositiveIntegerFromUserInput(out int quantity)
+        {
+            string? quantityStr = Console.ReadLine();
+            bool result = int.TryParse(quantityStr, out quantity) && quantity >= 0;
+            if (!result)
+            {
+                Console.WriteLine("Quantity must be positive or zero.");
+            }
+            return result;
+        }
     }
 }

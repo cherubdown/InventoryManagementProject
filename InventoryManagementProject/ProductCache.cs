@@ -49,10 +49,15 @@ namespace InventoryManagementProject
             Console.WriteLine($"Product name: {product.Name}, price: {product.Price}, stock: {product.Stock}");
         }
 
+        public Product? FindProductByNameInCache(string name)
+        {
+            return ProductsCache.Find(p => p.Name.ToLowerInvariant() == name.ToLowerInvariant());
+        }
+
         public void AddProduct()
         {
             Product product;
-            if (!InputValidation.ValidateAddProduct(out product, ProductsCache))
+            if (!InputValidation.ValidateAddProduct(out product))
             {
                 return;
             }
@@ -63,7 +68,7 @@ namespace InventoryManagementProject
         {
             Product product;
             int quantity;
-            if (InputValidation.ValidateSellProduct(out product, out quantity, ProductsCache))
+            if (InputValidation.ValidateSellProduct(out product, out quantity))
             {
                 product.Stock -= quantity;
                 Console.WriteLine($"Product sold. There {(product.Stock == 1 ? "is" : "are")} {product.Stock} now in stock.");
@@ -75,7 +80,7 @@ namespace InventoryManagementProject
         {
             Product product;
             int quantity;
-            if (InputValidation.ValidateAddStock(out product, out quantity, ProductsCache))
+            if (InputValidation.ValidateAddStock(out product, out quantity))
             {
                 product.Stock += quantity;
                 Console.WriteLine($"Product stocked. There {(product.Stock == 1 ? "is" : "are")} {product.Stock} now in stock.");
@@ -85,7 +90,7 @@ namespace InventoryManagementProject
         public void RemoveProduct()
         {
             Product product;
-            if (InputValidation.ValidateRemoveProduct(out product, ProductsCache))
+            if (InputValidation.ValidateRemoveProduct(out product))
             {
                 ProductsCache.Remove(product);
             }

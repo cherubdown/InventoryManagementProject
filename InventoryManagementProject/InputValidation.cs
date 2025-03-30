@@ -54,14 +54,14 @@ namespace InventoryManagementProject
             return true;
         }
 
-        private static Product? FindProductByName(List<Product> products)
+        private static Product? QueryByProductName()
         {
             string? name = Console.ReadLine();
             if (!IsValidProductName(name))
             {
                 return null;
             }
-            Product result = products.Find(p => p.Name.ToLowerInvariant() == name.ToLowerInvariant());
+            Product result = ProductCache.Instance.FindProductByNameInCache(name);
             if (result == null)
             {
                 Console.WriteLine("Product not found in the inventory system.");
@@ -69,8 +69,7 @@ namespace InventoryManagementProject
             return result;
         }
 
-
-        public static bool ValidateAddProduct(out Product product, List<Product> products)
+        public static bool ValidateAddProduct(out Product product)
         {
             product = null;
             Console.WriteLine("What is the name of the product you wish to add?");
@@ -79,7 +78,7 @@ namespace InventoryManagementProject
             {
                 return false;
             }
-            product = products.Find(p => p.Name.ToLowerInvariant() == name.ToLowerInvariant());
+            product = ProductCache.Instance.FindProductByNameInCache(name);
             if (product != null)
             {
                 Console.WriteLine("Product is already in the system. You cannot add it again.");
@@ -107,11 +106,11 @@ namespace InventoryManagementProject
             return true;
         }
 
-        public static bool ValidateSellProduct(out Product product, out int quantity, List<Product> products)
+        public static bool ValidateSellProduct(out Product product, out int quantity)
         {
             quantity = 0;
             Console.WriteLine("What is the name of the item you'd like to sell?");
-            product = FindProductByName(products);
+            product = QueryByProductName();
             if (product == null)
             {
                 return false;
@@ -133,11 +132,11 @@ namespace InventoryManagementProject
             return true;
         }
 
-        public static bool ValidateAddStock(out Product product, out int quantity, List<Product> products)
+        public static bool ValidateAddStock(out Product product, out int quantity)
         {
             quantity = 0;
             Console.WriteLine($"What is the name of the item you'd like to add stock to?");
-            product = FindProductByName(products);
+            product = QueryByProductName();
             if (product == null)
             {
                 return false;
@@ -151,10 +150,10 @@ namespace InventoryManagementProject
             return true;
         }
 
-        public static bool ValidateRemoveProduct(out Product product, List<Product> products)
+        public static bool ValidateRemoveProduct(out Product product)
         {
             Console.WriteLine("What is the name of the item you'd like to remove from the system?");
-            product = FindProductByName(products);
+            product = QueryByProductName();
             if (product == null)
             {
                 return false;

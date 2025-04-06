@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace InventoryManagementProject.Models
+namespace InventoryManagementProject
 {
     
-    public class Product : IProduct
+    public class Product
     {
         public Guid ID { get; set; }
         public string Name { get; set; }

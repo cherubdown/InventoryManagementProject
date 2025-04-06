@@ -1,5 +1,4 @@
-﻿using InventoryManagementProject.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -34,7 +33,7 @@ namespace InventoryManagementProject
                 switch (response.KeyChar)
                 {
                     case '1':
-                        ProductsCache.ViewProducts();
+                        ProductsCache.DisplayProducts();
                         continue;
                     case '2':
                         ProductsCache.SellProduct();

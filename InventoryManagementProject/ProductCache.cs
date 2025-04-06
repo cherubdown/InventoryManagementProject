@@ -1,5 +1,4 @@
-﻿using InventoryManagementProject.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,12 +12,13 @@ namespace InventoryManagementProject
         
         private List<Product> ProductsCache { get; set; } = [];
 
-        // implement a singleton product cache so that a second instance may never be made
+        // implement a singleton product cache so that a second instance may never be created
         private static ProductCache? instance = null;
         private ProductCache()
         {
             ProductsCache = DataWriter.LoadDatabase();
         }
+
         public static ProductCache Instance
         {
             get
@@ -36,17 +36,9 @@ namespace InventoryManagementProject
             DataWriter.SaveDatabase(ProductsCache);
         }
 
-        public void ViewProducts()
+        public void DisplayProducts()
         {
-            foreach (Product product in ProductsCache)
-            {
-                WriteProductDetailsRowToConsole(product);
-            }
-        }
-
-        private void WriteProductDetailsRowToConsole(Product product)
-        {
-            Console.WriteLine($"Product name: {product.Name}, price: {product.Price}, stock: {product.Stock}");
+            DisplayHelper.DisplayProducts(ProductsCache);
         }
 
         public Product? FindProductByNameInCache(string name)

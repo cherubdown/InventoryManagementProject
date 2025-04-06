@@ -43,7 +43,7 @@ namespace InventoryManagementProject
             return result;
         }
 
-        private static bool IsValidProductName(string name)
+        private static bool IsAValidProductName(string name)
         {
             if (string.IsNullOrEmpty(name))
             {
@@ -53,10 +53,10 @@ namespace InventoryManagementProject
             return true;
         }
 
-        private static Product? QueryByProductName()
+        public static Product? QueryByProductName()
         {
             string? name = Console.ReadLine();
-            if (!IsValidProductName(name))
+            if (!IsAValidProductName(name))
             {
                 return null;
             }
@@ -73,7 +73,7 @@ namespace InventoryManagementProject
             product = null;
             Console.WriteLine("What is the name of the product you wish to add?");
             string? name = Console.ReadLine();
-            if (!IsValidProductName(name))
+            if (!IsAValidProductName(name))
             {
                 return false;
             }

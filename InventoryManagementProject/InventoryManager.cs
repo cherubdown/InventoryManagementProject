@@ -21,11 +21,12 @@ namespace InventoryManagementProject
 
                 Console.WriteLine(Environment.NewLine + "Options:" + Environment.NewLine);
                 Console.WriteLine("1. View all products");
-                Console.WriteLine("2. Sell a product");
-                Console.WriteLine("3. Add stock to a product");
-                Console.WriteLine("4. Add new product to the inventory system");
-                Console.WriteLine("5. Remove product from the inventory system");
-                Console.WriteLine("6. Exit");
+                Console.WriteLine("2. View a single product");
+                Console.WriteLine("3. Sell a product");
+                Console.WriteLine("4. Add stock to product");
+                Console.WriteLine("5. Add new product to the inventory system");
+                Console.WriteLine("6. Remove product from the inventory system");
+                Console.WriteLine("7. Exit");
 
                 ConsoleKeyInfo response = Console.ReadKey();
                 Console.WriteLine(Environment.NewLine);
@@ -36,18 +37,21 @@ namespace InventoryManagementProject
                         ProductsCache.DisplayProducts();
                         continue;
                     case '2':
+                        ProductsCache.DisplaySingleProduct();
+                        continue;
+                    case '3':
                         ProductsCache.SellProduct();
                         break;
-                    case '3':
+                    case '4':
                         ProductsCache.AddStock();
                         break;
-                    case '4':
+                    case '5':
                         ProductsCache.AddProduct();
                         break;
-                    case '5':
+                    case '6':
                         ProductsCache.RemoveProduct();
                         break;
-                    case '6':
+                    case '7':
                         Environment.Exit(0);
                         continue;
                     default:

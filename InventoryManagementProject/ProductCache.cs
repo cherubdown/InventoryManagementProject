@@ -16,7 +16,7 @@ namespace InventoryManagementProject
         private static ProductCache? instance = null;
         private ProductCache()
         {
-            ProductsCache = DataWriter.LoadDatabase();
+            ProductsCache = DataStore.LoadDatabase();
         }
 
         public static ProductCache Instance
@@ -33,12 +33,17 @@ namespace InventoryManagementProject
 
         public void Save()
         {
-            DataWriter.SaveDatabase(ProductsCache);
+            DataStore.SaveDatabase(ProductsCache);
         }
 
         public void DisplayProducts()
         {
             DisplayHelper.DisplayProducts(ProductsCache);
+        }
+
+        public void DisplaySingleProduct()
+        {
+            DisplayHelper.DisplaySingleProduct();
         }
 
         public Product? FindProductByNameInCache(string name)

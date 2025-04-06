@@ -21,10 +21,5 @@ namespace InventoryManagementProject
             Price = price;
             Stock = stock;
         }
-
-        public bool IsValidProductUpdate(int quantity)
-        {
-            return quantity <= Stock;
-        }
     }
 }

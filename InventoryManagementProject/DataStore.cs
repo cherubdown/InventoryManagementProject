@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace InventoryManagementProject
 {
-    public class DataWriter
+    public class DataStore
     {
         /// <summary>
         /// todo: use config file

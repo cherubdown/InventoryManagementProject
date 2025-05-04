@@ -12,9 +12,9 @@ namespace InventoryManagementProject
         /// <summary>
         /// todo: use config file
         /// </summary>
-        private static readonly string DATA_FILE_NAME = "inventory.json";
+        private static readonly string DATA_FILE_NAME = "library.json";
 
-        public static List<Product> LoadDatabase()
+        public static List<Book> LoadDatabase()
         {
             try
             {
@@ -23,7 +23,7 @@ namespace InventoryManagementProject
                     string jsonString = File.ReadAllText(DATA_FILE_NAME);
                     if (!string.IsNullOrEmpty(jsonString))
                     {
-                        var deserializedResult = JsonSerializer.Deserialize<List<Product>>(jsonString);
+                        var deserializedResult = JsonSerializer.Deserialize<List<Book>>(jsonString);
                         if (deserializedResult != null)
                         {
                             return deserializedResult;
@@ -38,12 +38,12 @@ namespace InventoryManagementProject
                 Console.WriteLine($"Stack Trace: {ex.StackTrace}");
                 Environment.Exit(0);
             }
-            return new List<Product>();
+            return new List<Book>();
         }
 
-        public static void SaveDatabase(List<Product> products)
+        public static void SaveDatabase(List<Book> book)
         {
-            File.WriteAllText(DATA_FILE_NAME, JsonSerializer.Serialize(products));
+            File.WriteAllText(DATA_FILE_NAME, JsonSerializer.Serialize(book));
         }
     }
 }

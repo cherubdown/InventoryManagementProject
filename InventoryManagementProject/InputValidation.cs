@@ -43,7 +43,7 @@ namespace InventoryManagementProject
             return result;
         }
 
-        private static bool IsAValidProductName(string name)
+        public static bool IsAValidName(string name)
         {
             if (string.IsNullOrEmpty(name))
             {
@@ -53,90 +53,41 @@ namespace InventoryManagementProject
             return true;
         }
 
-        public static Product? QueryByProductName()
+        public static Book? QueryByName()
         {
             string? name = Console.ReadLine();
-            if (!IsAValidProductName(name))
+            if (!IsAValidName(name))
             {
                 return null;
             }
-            Product result = ProductCache.Instance.FindProductByNameInCache(name);
+            Book result = Cache.Instance.FindByNameInCache(name);
             if (result == null)
             {
-                Console.WriteLine("Product not found in the inventory system.");
+                Console.WriteLine("Book not found in the system.");
             }
             return result;
         }
 
-        public static bool ValidateAddProduct(out Product product)
+
+        public static bool ValidateRemove(out Book book)
         {
-            product = null;
-            Console.WriteLine("What is the name of the product you wish to add?");
-            string? name = Console.ReadLine();
-            if (!IsAValidProductName(name))
+            Console.WriteLine("What is the name of the book to remove?");
+            book = QueryByName();
+            if (book == null)
             {
-                return false;
-            }
-            product = ProductCache.Instance.FindProductByNameInCache(name);
-            if (product != null)
-            {
-                Console.WriteLine("Product is already in the system. You cannot add it again.");
-                return false;
-            }
-
-            // basic price validation
-            Console.WriteLine("Add Product: What is the price of the product?:");
-            string? priceStr = Console.ReadLine();
-            double price;
-            if (!double.TryParse(priceStr, out price))
-            {
-                Console.WriteLine("Invalid price. Item not added.");
-                return false;
-            }
-
-            // basic stock validation
-            Console.WriteLine("Add Product: How many do you have in stock?:");
-            int stock;
-            if (!IsPositiveIntegerFromUserInput(out stock))
-            {
-                return false;
-            }
-            product = new Product(name, price, stock);
-            return true;
-        }
-
-        public static bool ValidateSellProduct(out Product product, out int quantity)
-        {
-            quantity = 0;
-            Console.WriteLine("What is the name of the item you'd like to sell?");
-            product = QueryByProductName();
-            if (product == null)
-            {
-                return false;
-            }
-
-            Console.WriteLine("How many do you want to sell?:");
-            if (!IsPositiveIntegerFromUserInput(out quantity))
-            {
-                return false;
-            }
-
-            // cannot have a negative quantity of stock
-            if (quantity >= product.Stock)
-            {
-                Console.WriteLine($"Product '{product.Name}' has only {product.Stock} in stock. You cannot sell more than what is in stock.");
+                Console.WriteLine("Book does not exist.");
                 return false;
             }
 
             return true;
         }
 
-        public static bool ValidateAddStock(out Product product, out int quantity)
+        public static bool ValidateAddStock(out Book book, out int quantity)
         {
             quantity = 0;
-            Console.WriteLine($"What is the name of the item you'd like to add stock to?");
-            product = QueryByProductName();
-            if (product == null)
+            Console.WriteLine($"What is the name of the book you'd like to add stock to?");
+            book = QueryByName();
+            if (book == null)
             {
                 return false;
             }
@@ -149,17 +100,6 @@ namespace InventoryManagementProject
             return true;
         }
 
-        public static bool ValidateRemoveProduct(out Product product)
-        {
-            Console.WriteLine("What is the name of the item you'd like to remove from the system?");
-            product = QueryByProductName();
-            if (product == null)
-            {
-                return false;
-            }
-
-            return true;
-        }
 
     }
 }

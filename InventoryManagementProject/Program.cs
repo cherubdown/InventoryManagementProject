@@ -2,5 +2,5 @@
 
 using InventoryManagementProject;
 
-InventoryManager program = new InventoryManager();
+BookManager program = new BookManager();
 program.Start();

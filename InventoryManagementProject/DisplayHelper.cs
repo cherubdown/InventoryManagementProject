@@ -8,44 +8,43 @@ namespace InventoryManagementProject
 {
     public static class DisplayHelper
     {
-        private static readonly string TABLE_OUTPUT_FORMAT = "|{0,36}|{1,50}|{2,8}|{3,5}|";
+        private static readonly string TABLE_OUTPUT_FORMAT = "|{0,30}|{1,12}|";
 
-        public static void DisplayProducts(IEnumerable<Product> ProductsCache)
+        public static void DisplayAll(IEnumerable<Book> Cache)
         {
-            if (!ProductsCache.Any())
+            if (!Cache.Any())
             {
-                Console.WriteLine("There are no Items in the system.");
+                Console.WriteLine("There are no Books in the system.");
                 return;
             }
             DisplayTableHeader();
-            foreach (Product product in ProductsCache)
+            foreach (Book book in Cache)
             {
-                WriteProductDetailsRowToConsole(product);
+                WriteDetailsRowToConsole(book);
             }
-            Console.WriteLine($"Products: {ProductsCache.Count()}");
+            Console.WriteLine($"Books: {Cache.Count()}");
         }
 
-        public static void DisplaySingleProduct()
+        public static void DisplaySingle()
         {
-            Console.WriteLine("Which product do you want to view?");
-            Product? product = InputValidation.QueryByProductName();
-            if (product != null)
+            Console.WriteLine("Which book do you want to view?");
+            Book? book = InputValidation.QueryByName();
+            if (book != null)
             {
                 DisplayTableHeader();
-                WriteProductDetailsRowToConsole(product);
+                WriteDetailsRowToConsole(book);
             }
         }
 
         private static void DisplayTableHeader()
         {
-            Console.WriteLine(TABLE_OUTPUT_FORMAT, "ID", "Name", "Price", "Stock");
+            Console.WriteLine(TABLE_OUTPUT_FORMAT, "Book Name", "Availability");
         }
         
-        private static void WriteProductDetailsRowToConsole(Product product)
+        private static void WriteDetailsRowToConsole(Book book)
         {
 
-            Console.WriteLine(TABLE_OUTPUT_FORMAT, product.ID, product.Name, product.Price, product.Stock);
-            //Console.WriteLine($"Product name: {product.Name}, price: {product.Price.ToString("C")}, stock: {product.Stock}");
+            Console.WriteLine(TABLE_OUTPUT_FORMAT, book.Name, book.IsCheckedOut ? "CHECKED OUT" : "AVAILABLE");
         }
     }
 }
